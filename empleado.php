@@ -33,7 +33,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (empty($categoria)) {
         $errores['categoria'] = "El campo categoria es obligatorio";
     }
-    $directorio="imagenes/";
+    $directorio = "imagenes/";
     if ($tipoImagen == "jpg" or $tipoImagen == "png" or $tipoImagen == "jpeg") {
         if (empty($errores)) {
 
@@ -41,12 +41,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             values ('$nombre','$descripcion','$dificultad','','$precio','$categoria')");
             if ($query == 1) {
                 echo "<p class='alert alert-danger'>Registro creado con exito</p>";
-                $idRegistro=$conn->insert_id;
-                $ruta=$directorio.$idRegistro.".".$tipoImagen;
-                $actualizarImagen=$conn->query("update platos set foto='$ruta' where id =$idRegistro");
-                if(move_uploaded_file($file,$ruta)){
+                $idRegistro = $conn->insert_id;
+                $ruta = $directorio . $idRegistro . "." . $tipoImagen;
+                $actualizarImagen = $conn->query("update platos set foto='$ruta' where id =$idRegistro");
+                if (move_uploaded_file($file, $ruta)) {
                     echo "<p class='alert alert-success'>Imagen subida con exito</p>";
-                }else{
+                } else {
                     echo "<p class='alert alert-danger'>Error al subir imagen</p>";
                 }
                 header('Location: empleado.php');
@@ -54,15 +54,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             } else {
                 echo "<p class='alert alert-danger'>Error al crear el usuario</p>";
             }
-
-        }else {
+        } else {
             foreach ($errores as $error) {
                 echo "<p class='alert alert-danger'>" . $error . "</p>";
             }
         }
     } ?>
     <script>
-        history.replaceState(null,null,location.pathname);
+        history.replaceState(null, null, location.pathname);
     </script>
 <?php }
 
@@ -74,7 +73,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Empleado</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link rel="stylesheet" href="">
 </head>
@@ -83,29 +82,34 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <div class="container">
         <div class="row justify-content-center">
             <div class="col">
-            <nav class="navbar navbar-expand-lg bg-body-tertiary">
-        <div class="container-fluid">
-            <a class="navbar-brand btn btn-danger im" href="#"><i class="fa-solid fa-mug-hot"></i></a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="index.php">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="login.php" aria-disabled="true">Iniciar sesion</a>
-                    </li>
-                </ul>
-                <form class="d-flex" role="search">
-                    
-                    <button class="btn btn-outline-success" type="submit">
-                        <a class="registarte" href="cliente.php">Ver Munu</a></button>
-                </form>
-            </div>
-        </div>
-    </nav>
+                <nav class="navbar navbar-expand-lg bg-body-tertiary">
+                    <div class="container-fluid">
+                        <a class="navbar-brand btn btn-danger im" href="#"><i class="fa-solid fa-mug-hot"></i></a>
+                        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                            <span class="navbar-toggler-icon"></span>
+                        </button>
+                        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                                <li class="nav-item">
+                                    <a class="nav-link active" aria-current="page" href="index.php">Home</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="login.php" aria-disabled="true">Iniciar sesion</a>
+                                </li>
+                            </ul>
+                            
+                            <div class="d-flex gap-2">
+                                <a href="./cerrarSesion/salir.php" class="btn btn-outline-danger" role="button">
+                                    Salir
+                                </a>
+                                <a href="menu.php" class="btn btn-outline-success" role="button">
+                                    Ver Menú
+                                </a>
+                            </div>
+
+                        </div>
+                    </div>
+                </nav>
             </div>
             <div class="col-12">
                 <?php
@@ -116,7 +120,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     echo "<h1>Error: No hay sesión iniciada.</h1>";
                 }
                 ?>
-              
+
 
             </div>
             <div class="col-12">
@@ -240,6 +244,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             </div>
         </div>
     </div>
+    <script src="https://kit.fontawesome.com/25921e2f9d.js" crossorigin="anonymous"></script>
 </body>
 
 </html>

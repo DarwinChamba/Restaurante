@@ -1,6 +1,23 @@
 <?php
+/*
 session_start();
+
+// Verificar si el usuario está logueado y es un cliente
+if (!isset($_SESSION['nombreLogin']) || $_SESSION['rol'] !== 'cliente') {
+    header("Location: login.php");
+    exit();
+}
+    */
+
+session_start(); // Asegúrate de iniciar la sesión al principio del archivo
+
+// Verifica si el usuario está logueado
+if (!isset($_SESSION['nombreLogin'])) {
+    header("Location: index.php");
+    exit();
+}
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -16,15 +33,7 @@ session_start();
     <div class="container">
         <div class="row">
             <div class="col-10">
-            <?php
-            
-                if (isset($_SESSION['nombreLogin'])) {
-                    echo "<h1>Bienvenido: " . htmlspecialchars($_SESSION['nombreLogin']) . "</h1>";
-                    //unset($_SESSION['nombre']);
-                } else {
-                    echo "<h1>Error: No hay sesión iniciada.</h1>";
-                }
-                ?>
+                <h1>Bienvenido: <?php echo htmlspecialchars($_SESSION['nombreLogin']); ?></h1>
             </div>
             <div class="col-12">
                 <nav class="navbar navbar-expand-lg bg-body-tertiary">
@@ -38,30 +47,21 @@ session_start();
                                 <li class="nav-item">
                                     <a class="nav-link active" aria-current="page" href="index.php">Home</a>
                                 </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="menu.php">Menu</a>
-                                </li>
-                                <li class="nav-item dropdown">
-                                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                        Dropdown
-                                    </a>
-                                    <ul class="dropdown-menu">
-                                        <li><a class="dropdown-item" href="#">Action</a></li>
-                                        <li><a class="dropdown-item" href="#">Another action</a></li>
-                                        <li>
-                                            <hr class="dropdown-divider">
-                                        </li>
-                                        <li><a class="dropdown-item" href="#">Something else here</a></li>
-                                    </ul>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="login.php" aria-disabled="true">Ver Factura</a>
-                                </li>
-                            </ul>
-                            <form class="d-flex" role="search">
 
-                                <button class="btn btn-outline-success" type="submit"><a class="factura" href="registrarUsuario.php">Ver Factura</a></button>
-                            </form>
+                            </ul>
+
+                            <?php
+
+                            //include("./cerrarSesion/salirCliente.php");
+                            ?>
+                            <div class="d-flex gap-2">
+                                <a href="./cerrarSesion/salirCliente.php" class="btn btn-outline-danger" role="button">
+                                    Salir
+                                </a>
+                                <a href="menu.php" class="btn btn-outline-success" role="button">
+                                    Ver Factura
+                                </a>
+                            </div>
                         </div>
                     </div>
                 </nav>

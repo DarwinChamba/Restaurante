@@ -17,45 +17,46 @@ if (isset($_SESSION['nombreLogin'])) {
 }
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-
     $email = (isset($_POST['email'])) ? $_POST['email'] : "";
     $password = (isset($_POST['password'])) ? $_POST['password'] : "";
     $errores = array();
+
     if (empty($email)) {
-        $errores['email'] = "Debes ingresar un correo electronico";
+        $errores['email'] = "Debes ingresar un correo electrónico";
     }
     if (empty($password)) {
         $errores['password'] = "Debes ingresar una contraseña";
     }
+
     if (empty($errores)) {
-        $sql = $conn->query("SELECT * FROM usuarios WHERE email = '$email'");
-        $valor = $sql->fetch_object();
-        $_SESSION['nombreLogin'] = $nombre;
-        $_SESSION['rol'] = $rol;
-        if ($email == $valor->email && $password == $valor->password && "admin" == $valor->rol) {
+        $sql = $conn->prepare("SELECT * FROM usuarios WHERE email = ?");
+        $sql->bind_param("s", $email);
+        $sql->execute();
+        $resultado = $sql->get_result();
+        $usuario = $resultado->fetch_object();
 
-            header("Location: admin.php");
+        if ($usuario && $password == $usuario->password) {
+            $_SESSION['nombreLogin'] = $usuario->nombre; // Asumiendo que hay una columna 'nombre' en la tabla usuarios
+            $_SESSION['rol'] = $usuario->rol;
+
+            switch ($usuario->rol) {
+                case 'admin':
+                    header("Location: admin.php");
+                    break;
+                case 'cliente':
+                    header("Location: cliente.php");
+                    break;
+                case 'empleado':
+                    header("Location: empleado.php");
+                    break;
+            }
             exit();
         } else {
-            echo "el usuario no existe";
-        }
-        if ($email == $valor->email && $password == $valor->password && "cliente" == $valor->rol) {
-
-            header("Location: cliente.php");
-            exit();
-        } else {
-            echo "el usuario no existe";
-        }
-        if ($email == $valor->email && $password == $valor->password && "empleado" == $valor->rol) {
-
-            header("Location: empleado.php");
-            exit();
-        } else {
-            echo "el usuario no existe";
+            echo "El usuario no existe o la contraseña es incorrecta";
         }
     } else {
         foreach ($errores as $error) {
-            echo $error;
+            echo $error . "<br>";
         }
     }
 }
