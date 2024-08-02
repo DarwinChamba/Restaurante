@@ -42,6 +42,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             switch ($usuario->rol) {
                 case 'admin':
                     header("Location: admin.php");
+                    $_SESSION['nombreAdmin']=$usuario->nombre;
                     break;
                 case 'cliente':
                     header("Location: cliente.php");

@@ -1,3 +1,13 @@
+<?php
+
+session_start(); // Asegúrate de iniciar la sesión al principio del archivo
+
+// Verifica si el usuario está logueado
+if (!isset($_SESSION['nombreAdmin'])) {
+    header("Location: index.php");
+    exit();
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -11,12 +21,12 @@
 
 <body>
     <?php
-    include ("eliminarUsuario.php");
+    include("eliminarUsuario.php");
     ?>
     <div class="container">
         <div class="row">
             <div class="col-12">
-            <nav class="navbar navbar-expand-lg bg-body-tertiary">
+                <nav class="navbar navbar-expand-lg bg-body-tertiary">
                     <div class="container-fluid">
                         <a class="navbar-brand btn btn-danger im" href="#"><i class="fa-solid fa-mug-hot"></i></a>
                         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -27,11 +37,12 @@
                                 <li class="nav-item">
                                     <a class="nav-link active" aria-current="page" href="index.php">Home</a>
                                 </li>
-                                
+
                             </ul>
                             
+
                             <div class="d-flex gap-2">
-                                <a href="./cerrarSesion/salir.php" class="btn btn-outline-danger" role="button">
+                                <a href="salirAdmin.php" class="btn btn-outline-danger" role="button">
                                     Salir
                                 </a>
                                 <a href="#" class="btn btn-outline-success" role="button">
@@ -77,7 +88,7 @@
                                         <i class="fa-solid fa-pen-to-square"></i>
                                     </a>
 
-                                    <a href="admin.php?id=<?=$valor->id?>" class="btn btn-primary"> 
+                                    <a href="admin.php?id=<?= $valor->id ?>" class="btn btn-primary">
                                         <i class="fa-solid fa-trash"></i></a>
                                 </td>
                             </tr>
