@@ -90,7 +90,7 @@
             </div>
         </div>
         <div class="footer-bottom">
-            <p>&copy; 2024 Tu Empresa. Todos los derechos reservados.</p>
+            <p>&copy; 2024 Restaurant Rio. Todos los derechos reservados.</p>
         </div>
     </footer>
 

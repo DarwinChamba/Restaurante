@@ -45,7 +45,7 @@ if (!isset($_SESSION['nombreAdmin'])) {
                                 <a href="salirAdmin.php" class="btn btn-outline-danger" role="button">
                                     Salir
                                 </a>
-                                <a href="#" class="btn btn-outline-success" role="button">
+                                <a href="cliente.php" class="btn btn-outline-success" role="button">
                                     Ver Menú
                                 </a>
                             </div>
