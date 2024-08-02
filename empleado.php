@@ -102,7 +102,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                 <a href="./cerrarSesion/salir.php" class="btn btn-outline-danger" role="button">
                                     Salir
                                 </a>
-                                <a href="menu.php" class="btn btn-outline-success" role="button">
+                                <a href="cliente.php" class="btn btn-outline-success" role="button">
                                     Ver Menú
                                 </a>
                             </div>
@@ -170,12 +170,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <div class="col-6">
                 <div class="card">
                     <div class="card-header">
-                        <p>Registro de platos</p>
+                        <p class="text-center">Registro de platos</p>
                     </div>
                     <div class="body">
                         <form action="empleado.php" method="post" enctype="multipart/form-data">
                             <div>
-                                <label class="form-label">Nombre</label>
+                                <label class="form-label">Nombre del Plato</label>
                                 <input type="text" class="form-control" name="nombre">
                             </div>
                             <div>
@@ -217,7 +217,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <p>Registrar Receta</p>
             </div>
             <div class="col-6">
-                <div class="card">
+                <div class="card mb-4">
                     <div class="card-header mt-4">
                         <?php
                         include("receta.php");
@@ -234,7 +234,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                 <label for="id" class="form-label">ID</label>
                                 <input type="text" id="id" class="form-control" name="id">
                             </div>
-                            <div class="text-center mt-4">
+                            <div class="text-center mt-4 mb-4">
                                 <button type="submit" class="btn btn-primary">Registrar Receta</button>
                             </div>
                         </form>
