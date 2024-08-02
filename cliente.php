@@ -1,17 +1,5 @@
 <?php
-/*
 session_start();
-
-// Verificar si el usuario está logueado y es un cliente
-if (!isset($_SESSION['nombreLogin']) || $_SESSION['rol'] !== 'cliente') {
-    header("Location: login.php");
-    exit();
-}
-    */
-
-session_start(); // Asegúrate de iniciar la sesión al principio del archivo
-
-// Verifica si el usuario está logueado
 if (!isset($_SESSION['nombreLogin'])) {
     header("Location: index.php");
     exit();
@@ -30,6 +18,12 @@ if (!isset($_SESSION['nombreLogin'])) {
 </head>
 
 <body>
+    <script>
+        function eliminar() {
+            var respuesta = confirm("¿Estás seguro de que deseas comprar los platos seleccionados?");
+            return respuesta;
+        }
+    </script>
     <div class="container">
         <div class="row">
             <div class="col-10">
@@ -47,60 +41,64 @@ if (!isset($_SESSION['nombreLogin'])) {
                                 <li class="nav-item">
                                     <a class="nav-link active" aria-current="page" href="index.php">Home</a>
                                 </li>
-
                             </ul>
-
-                            <?php
-
-                            //include("./cerrarSesion/salirCliente.php");
-                            ?>
                             <div class="d-flex gap-2">
                                 <a href="./cerrarSesion/salirCliente.php" class="btn btn-outline-danger" role="button">
                                     Salir
                                 </a>
-                                <a href="menu.php" class="btn btn-outline-success" role="button">
-                                    Ver Factura
-                                </a>
+                                
                             </div>
                         </div>
                     </div>
                 </nav>
             </div>
-        </div>
-        <div class="row justify-content-center">
+        </div>  
+    </div>
+    <div class="container-fluid"> <!-- Cambiado a container-fluid para mayor flexibilidad -->
+    <form action="factura.php" method="post" onsubmit="return eliminar()">
+        <div class="row justify-content-center"> <!-- Esta clase centra las columnas -->
             <?php
             require_once 'db_connection.php';
-            $sql = $conn->query("select * from platos");
+            $sql = $conn->query("SELECT * FROM platos");
             while ($valor = $sql->fetch_object()) {
             ?>
-                <div class="col-md-4"> <!-- Ajusta el tamaño de la columna según tu diseño -->
-                    <div class="card">
-                        <img src="<?= $valor->foto ?>" alt="Imagen de la tarjeta" class="card-img-top">
-                        <div class="card-body">
-                            <h5 class="card-title"><?= $valor->nombre ?></h5>
-                            <p class="card-text"><?= $valor->descripcion ?></p>
-                            <a href="#" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop<?= $valor->id ?>">Ver Detalles</a>
-                            <!-- Button trigger modal -->
-
-
+                <div class="col-lg-3 col-md-4 col-sm-6 mb-4"> <!-- Ajustado para más opciones responsive -->
+                    <div class="card h-100">
+                        <img src="<?= htmlspecialchars($valor->foto) ?>" alt="Imagen de <?= htmlspecialchars($valor->nombre) ?>" class="card-img-top">
+                        <div class="card-body d-flex flex-column">
+                            <h5 class="card-title"><?= htmlspecialchars($valor->nombre) ?></h5>
+                            <p class="card-text"><?= htmlspecialchars($valor->descripcion) ?></p>
+                            <div class="mt-auto">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" name="platos[]" value="<?= $valor->id ?>" id="plato<?= $valor->id ?>">
+                                    <label class="form-check-label" for="plato<?= $valor->id ?>">
+                                        Comprar
+                                    </label>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
-
-
             <?php
             }
             ?>
-
         </div>
+        <div class="row">
+            <div class="col-12 text-center my-4"> <!-- Añadido my-4 para margen vertical -->
+                <button type="submit" class="btn btn-primary">Ver Factura</button>
+            </div>
+        </div>
+    </form>
+</div>
 
-    </div>
-
-
-
-
-
+<style>
+    .card {
+        margin: 0 auto; /* Esto centrará las tarjetas dentro de sus columnas */
+        max-width: 300px; /* Ajusta este valor según tus necesidades */
+    }
+</style>
     <script src="https://kit.fontawesome.com/25921e2f9d.js" crossorigin="anonymous"></script>
 </body>
+
 
 </html>
