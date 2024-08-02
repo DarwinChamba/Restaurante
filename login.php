@@ -2,7 +2,7 @@
 session_start();
 require_once 'db_connection.php';
 
-if (isset($_SESSION['nombre'])) {
+if (isset($_SESSION['nombreLogin'])) {
     // Redirigir al usuario a la página correspondiente según su rol
     if ($_SESSION['rol'] == 'admin') {
         header("Location: admin.php");
@@ -131,11 +131,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         <h2 class="text-center">Iniciar Sesión</h2>
                     </div>
                     <div class="card-body">
-                        <?php
-                        if (isset($error)) {
-                            echo "<p style='color: red;'>$error</p>";
-                        }
-                        ?>
+                        
                         <form action="login.php" method="post">
                             <div>
                                 <label class="form-label">Email</label>

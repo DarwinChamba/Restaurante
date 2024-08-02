@@ -15,10 +15,10 @@ session_start();
 <body>
     <div class="container">
         <div class="row">
-            <div class="col">
+            <div class="col-10">
             <?php
             
-                if (!isset($_SESSION['nombreLogin'])) {
+                if (isset($_SESSION['nombreLogin'])) {
                     echo "<h1>Bienvenido: " . htmlspecialchars($_SESSION['nombreLogin']) . "</h1>";
                     //unset($_SESSION['nombre']);
                 } else {

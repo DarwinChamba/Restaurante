@@ -1,8 +1,6 @@
 <?php
 
-if(isset($_SESSION['nombre'])){
-    unset($_SESSION['nombre']);
-}
+
 ?>
 <!DOCTYPE html>
 <html lang="es">
